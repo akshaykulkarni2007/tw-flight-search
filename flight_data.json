@@ -1,0 +1,224 @@
+[
+	{
+		"id": 1,
+		"origin": "Pune",
+		"destination": "Mumbai",
+		"dep_time": "23:38",
+		"price": "9749.88"
+	},
+	{
+		"id": 2,
+		"origin": "Mumbai",
+		"destination": "Pune",
+		"dep_time": "8:09",
+		"price": "5274.45"
+	},
+	{
+		"id": 3,
+		"origin": "Pune",
+		"destination": "Banglore",
+		"dep_time": "14:16",
+		"price": "2893.49"
+	},
+	{
+		"id": 4,
+		"origin": "Banglore",
+		"destination": "Pune",
+		"dep_time": "22:42",
+		"price": "1338.82"
+	},
+	{
+		"id": 5,
+		"origin": "Delhi",
+		"destination": "Mumbai",
+		"dep_time": "7:03",
+		"price": "5999.79"
+	},
+	{
+		"id": 6,
+		"origin": "Mumbai",
+		"destination": "Delhi",
+		"dep_time": "8:39",
+		"price": "2725.77"
+	},
+	{
+		"id": 7,
+		"origin": "Pune",
+		"destination": "Delhi",
+		"arr_time": "00:20",
+		"date": "11/01/2018",
+		"dep_time": "23:19",
+		"price": "7317.10"
+	},
+	{
+		"id": 8,
+		"origin": "Delhi",
+		"destination": "Pune",
+		"arr_time": "01:10",
+		"date": "11/01/2018",
+		"dep_time": "23:58",
+		"price": "9763.43"
+	},
+	{
+		"id": 9,
+		"origin": "Delhi",
+		"destination": "Banglore",
+		"dep_time": "9:25",
+		"price": "4344.55"
+	},
+	{
+		"id": 10,
+		"origin": "Banglore",
+		"destination": "Delhi",
+		"dep_time": "15:52",
+		"price": "2439.23"
+	},
+	{
+		"id": 11,
+		"origin": "Pune",
+		"destination": "Mumbai",
+		"dep_time": "1:30",
+		"price": "6697.22"
+	},
+	{
+		"id": 12,
+		"origin": "Mumbai",
+		"destination": "Pune",
+		"dep_time": "2:52",
+		"price": "1700.93"
+	},
+	{
+		"id": 13,
+		"origin": "Mumbai",
+		"destination": "Banglore",
+		"dep_time": "23:07",
+		"price": "6540.37"
+	},
+	{
+		"id": 14,
+		"origin": "Banglore",
+		"destination": "Mumbai",
+		"dep_time": "19:27",
+		"price": "9117.75"
+	},
+	{
+		"id": 15,
+		"origin": "Delhi",
+		"destination": "Banglore",
+		"dep_time": "5:01",
+		"price": "1536.39"
+	},
+	{
+		"id": 16,
+		"origin": "Banglore",
+		"destination": "Delhi",
+		"dep_time": "7:22",
+		"price": "1555.88"
+	},
+	{
+		"id": 17,
+		"origin": "Pune",
+		"destination": "Delhi",
+		"arr_time": "04:20",
+		"date": "11/01/2018",
+		"dep_time": "2:39",
+		"price": "8444.07"
+	},
+	{
+		"id": 18,
+		"origin": "Delhi",
+		"destination": "Pune",
+		"arr_time": "11:10",
+		"date": "11/01/2018",
+		"dep_time": "9:35",
+		"price": "3299.24"
+	},
+	{
+		"id": 19,
+		"origin": "Banglore",
+		"destination": "Delhi",
+		"dep_time": "2:18",
+		"price": "6043.63"
+	},
+	{
+		"id": 20,
+		"origin": "Delhi",
+		"destination": "Banglore",
+		"dep_time": "6:48",
+		"price": "9119.08"
+	},
+	{
+		"id": 21,
+		"origin": "Mumbai",
+		"destination": "Banglore",
+		"dep_time": "17:11",
+		"price": "1893.63"
+	},
+	{
+		"id": 22,
+		"origin": "Banglore",
+		"destination": "Mumbai",
+		"dep_time": "20:58",
+		"price": "1674.52"
+	},
+	{
+		"id": 23,
+		"origin": "Delhi",
+		"destination": "Pune",
+		"arr_time": "05:00",
+		"date": "11/01/2018",
+		"dep_time": "3:21",
+		"price": "5128.42"
+	},
+	{
+		"id": 24,
+		"origin": "Pune",
+		"destination": "Delhi",
+		"arr_time": "09:20",
+		"date": "11/01/2018",
+		"dep_time": "7:14",
+		"price": "2985.67"
+	},
+	{
+		"id": 25,
+		"origin": "Mumbai",
+		"destination": "Delhi",
+		"dep_time": "23:42",
+		"price": "9924.98"
+	},
+	{
+		"id": 26,
+		"origin": "Delhi",
+		"destination": "Banglore",
+		"dep_time": "13:08",
+		"price": "4731.79"
+	},
+	{
+		"id": 27,
+		"origin": "Banglore",
+		"destination": "Delhi",
+		"dep_time": "14:43",
+		"price": "4635.62"
+	},
+	{
+		"id": 28,
+		"origin": "Pune",
+		"destination": "Banglore",
+		"dep_time": "8:38",
+		"price": "5947.63"
+	},
+	{
+		"id": 29,
+		"origin": "Pune",
+		"destination": "Banglore",
+		"dep_time": "8:34",
+		"price": "3297.15"
+	},
+	{
+		"id": 30,
+		"origin": "Banglore",
+		"destination": "Pune",
+		"dep_time": "1:45",
+		"price": "9325.82"
+	}
+]
