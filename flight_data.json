@@ -46,7 +46,7 @@
 		"origin": "Pune",
 		"destination": "Delhi",
 		"arr_time": "00:20",
-		"date": "11/01/2018",
+		"date": "2018-11-01",
 		"dep_time": "23:19",
 		"price": "7317.10"
 	},
@@ -55,7 +55,7 @@
 		"origin": "Delhi",
 		"destination": "Pune",
 		"arr_time": "01:10",
-		"date": "11/01/2018",
+		"date": "2018-11-01",
 		"dep_time": "23:58",
 		"price": "9763.43"
 	},
@@ -120,7 +120,7 @@
 		"origin": "Pune",
 		"destination": "Delhi",
 		"arr_time": "04:20",
-		"date": "11/01/2018",
+		"date": "2018-11-01",
 		"dep_time": "2:39",
 		"price": "8444.07"
 	},
@@ -129,7 +129,7 @@
 		"origin": "Delhi",
 		"destination": "Pune",
 		"arr_time": "11:10",
-		"date": "11/01/2018",
+		"date": "2018-11-01",
 		"dep_time": "9:35",
 		"price": "3299.24"
 	},
@@ -166,7 +166,7 @@
 		"origin": "Delhi",
 		"destination": "Pune",
 		"arr_time": "05:00",
-		"date": "11/01/2018",
+		"date": "2018-11-01",
 		"dep_time": "3:21",
 		"price": "5128.42"
 	},
@@ -175,7 +175,7 @@
 		"origin": "Pune",
 		"destination": "Delhi",
 		"arr_time": "09:20",
-		"date": "11/01/2018",
+		"date": "2018-11-01",
 		"dep_time": "7:14",
 		"price": "2985.67"
 	},
