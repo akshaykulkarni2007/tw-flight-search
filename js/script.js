@@ -61,55 +61,66 @@ function filterResults(data) {
 }
 
 function renderResults(depFlightData, retFlightData, metaData) {
-	journeySummary.innerHTML = `${metaData[0]} > ${metaData[1]} 
-  ${metaData[3] ? " > " + metaData[0] : ""}`
+	if (depFlightData.length !== 0 || retFlightData.length !== 0) {
+		journeySummary.innerHTML = `${metaData[0]} > ${metaData[1]} 
+      ${metaData[3] ? " > " + metaData[0] : ""}`
 
-	scheduleSummary.innerHTML = `Depart: ${metaData[2]} <br/> Return: ${
-		metaData[3] === null ? "-" : metaData[3]
-	}`
+		scheduleSummary.innerHTML = `Depart: ${metaData[2]} <br/> Return: ${
+			metaData[3] === null ? "-" : metaData[3]
+		}`
 
-	depFlightData.forEach((flight, index) => {
-		resultsTemplate += `
+		depFlightData.forEach((flight, index) => {
+			resultsTemplate += `
       <div class="row result my-2">
         <div class="col-md-9">
           <div class="row">
             <div class="col-md-6">Rs. ${Math.ceil(
 							depFlightData[index].price
 						)}</div>
-            <div class="col-md-6">Rs. ${Math.ceil(
-							retFlightData[index].price
-						)}</div>
+            <div class="col-md-6"> ${
+							retFlightData.length
+								? `Rs. ${Math.ceil(retFlightData[index].price)}`
+								: ""
+						}</div>
           </div>
           <div class="row">
             <div class="col-md-6">
               <p>${depFlightData[index].id}</p>
               <p>${depFlightData[index].origin} > ${
-			depFlightData[index].destination
-		}</p>
+				depFlightData[index].destination
+			}</p>
               <p>Depart: ${depFlightData[index].dep_time}</p>
               <p>Arrive: ${depFlightData[index].arr_time}</p>
             </div>
-            <div class="col-md-6">
+            ${
+							retFlightData.length
+								? `<div class="col-md-6">
             <p>${retFlightData[index].id}</p>
             <p>${retFlightData[index].origin} > ${
-			retFlightData[index].destination
-		}</p>
+										retFlightData[index].destination
+								  }</p>
             <p>Depart: ${retFlightData[index].dep_time}</p>
             <p>Arrive: ${retFlightData[index].arr_time}</p>
-            </div>
+            </div>`
+								: ""
+						}
           </div>
         </div>
         <div class="col-md-3 text-right">
           <p>Total: Rs. ${Math.ceil(
 						(Number(depFlightData[index].price) +
-							Number(retFlightData[index].price)) *
+							(retFlightData.length && Number(retFlightData[index].price))) *
 							metaData[4]
 					)}</p>
           <button class="btn btn-primary">Book This Flight</button>
         </div>
       </div>
     `
-	})
+		})
+	} else {
+		resultsTemplate = `No results found. Try adjusting price filter`
+	}
+
 	document.getElementById("results").innerHTML = resultsTemplate
 	console.log(arguments)
 }
