@@ -7,10 +7,6 @@ let depFlightData = [],
 	retFlightData = [],
 	resultsTemplate = ``
 
-Array.from(searchButton).forEach(button =>
-	button.addEventListener("click", fetchFlightData)
-)
-
 function fetchFlightData() {
 	fetch("../flight_data.json")
 		.then(res => res.json())
@@ -18,18 +14,11 @@ function fetchFlightData() {
 }
 
 function filterResults(data) {
-	const origin = document
-			.querySelector(".tab-pane.active #origin")
-			.value.toLowerCase(),
-		destination = document
-			.querySelector(".tab-pane.active #destination")
-			.value.toLowerCase(),
-		depDate = document.querySelector(".tab-pane.active #dep-date").value,
-		retDate =
-			document.querySelector(".tab-pane.active #ret-date") &&
-			document.querySelector(".tab-pane.active #ret-date").value,
-		passangers =
-			document.querySelector(".tab-pane.active #passangers").value || 1,
+	const origin = getInput("origin").value.toLowerCase(),
+		destination = getInput("destination").value.toLowerCase(),
+		depDate = getInput("dep-date").value,
+		retDate = getInput("ret-date") && getInput("ret-date").value,
+		passangers = getInput("passangers").value || 1,
 		minPrice = Math.trunc(priceSlider.noUiSlider.get()[0]),
 		maxPrice = Math.trunc(priceSlider.noUiSlider.get()[1]),
 		metaData = [origin, destination, depDate, retDate, passangers]
@@ -118,12 +107,20 @@ function renderResults(depFlightData, retFlightData, metaData) {
     `
 		})
 	} else {
-		resultsTemplate = `No results found. Try adjusting price filter`
+		resultsTemplate = `No results found.`
 	}
 
 	document.getElementById("results").innerHTML = resultsTemplate
 	console.log(arguments)
 }
+
+function getInput(id) {
+	return document.querySelector(".tab-pane.active #" + id)
+}
+
+Array.from(searchButton).forEach(button =>
+	button.addEventListener("click", fetchFlightData)
+)
 
 function initSlider() {
 	noUiSlider.create(priceSlider, {
