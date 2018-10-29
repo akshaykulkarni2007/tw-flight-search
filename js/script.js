@@ -28,10 +28,11 @@ function filterResults(data) {
 		retDate =
 			document.querySelector(".tab-pane.active #ret-date") &&
 			document.querySelector(".tab-pane.active #ret-date").value,
-		passangers = document.querySelector(".tab-pane.active #passangers").value,
+		passangers =
+			document.querySelector(".tab-pane.active #passangers").value || 1,
 		minPrice = Math.trunc(priceSlider.noUiSlider.get()[0]),
 		maxPrice = Math.trunc(priceSlider.noUiSlider.get()[1]),
-		metaData = [origin, destination, depDate, retDate]
+		metaData = [origin, destination, depDate, retDate, passangers]
 
 	resultsTemplate = ``
 
@@ -70,7 +71,14 @@ function renderResults(depFlightData, retFlightData, metaData) {
 	depFlightData.forEach((flight, index) => {
 		resultsTemplate += `
       <div class="col-md-9">
-      <h3>Rs. ${Math.ceil(depFlightData[index].price)}</h3>
+        <div class="row">
+          <div class="col-md-6">Rs. ${Math.ceil(
+						depFlightData[index].price
+					)}</div>
+          <div class="col-md-6">Rs. ${Math.ceil(
+						retFlightData[index].price
+					)}</div>
+        </div>
         <div class="row">
           <div class="col-md-6">
             <p>${depFlightData[index].id}</p>
@@ -81,17 +89,23 @@ function renderResults(depFlightData, retFlightData, metaData) {
             <p>Arrive: ${depFlightData[index].arr_time}</p>
           </div>
           <div class="col-md-6">
-          <p>${depFlightData[index].id}</p>
+          <p>${retFlightData[index].id}</p>
           <p>${retFlightData[index].origin} > ${
 			retFlightData[index].destination
-		} 
-  </p>
+		}</p>
           <p>Depart: ${retFlightData[index].dep_time}</p>
           <p>Arrive: ${retFlightData[index].arr_time}</p>
           </div>
         </div>
       </div>
-      <div class="col-md-3"><button class="btn btn-primary">Book This Flight</button></div>
+      <div class="col-md-3">
+        <p>Total: Rs. ${Math.ceil(
+					(Number(depFlightData[index].price) +
+						Number(retFlightData[index].price)) *
+						metaData[4]
+				)}</p>
+        <button class="btn btn-primary">Book This Flight</button>
+      </div>
     `
 	})
 	document.getElementById("results").innerHTML = resultsTemplate
