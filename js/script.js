@@ -70,41 +70,43 @@ function renderResults(depFlightData, retFlightData, metaData) {
 
 	depFlightData.forEach((flight, index) => {
 		resultsTemplate += `
-      <div class="col-md-9">
-        <div class="row">
-          <div class="col-md-6">Rs. ${Math.ceil(
-						depFlightData[index].price
-					)}</div>
-          <div class="col-md-6">Rs. ${Math.ceil(
-						retFlightData[index].price
-					)}</div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <p>${depFlightData[index].id}</p>
-            <p>${depFlightData[index].origin} > ${
+      <div class="row result my-2">
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-6">Rs. ${Math.ceil(
+							depFlightData[index].price
+						)}</div>
+            <div class="col-md-6">Rs. ${Math.ceil(
+							retFlightData[index].price
+						)}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <p>${depFlightData[index].id}</p>
+              <p>${depFlightData[index].origin} > ${
 			depFlightData[index].destination
 		}</p>
-            <p>Depart: ${depFlightData[index].dep_time}</p>
-            <p>Arrive: ${depFlightData[index].arr_time}</p>
-          </div>
-          <div class="col-md-6">
-          <p>${retFlightData[index].id}</p>
-          <p>${retFlightData[index].origin} > ${
+              <p>Depart: ${depFlightData[index].dep_time}</p>
+              <p>Arrive: ${depFlightData[index].arr_time}</p>
+            </div>
+            <div class="col-md-6">
+            <p>${retFlightData[index].id}</p>
+            <p>${retFlightData[index].origin} > ${
 			retFlightData[index].destination
 		}</p>
-          <p>Depart: ${retFlightData[index].dep_time}</p>
-          <p>Arrive: ${retFlightData[index].arr_time}</p>
+            <p>Depart: ${retFlightData[index].dep_time}</p>
+            <p>Arrive: ${retFlightData[index].arr_time}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <p>Total: Rs. ${Math.ceil(
-					(Number(depFlightData[index].price) +
-						Number(retFlightData[index].price)) *
-						metaData[4]
-				)}</p>
-        <button class="btn btn-primary">Book This Flight</button>
+        <div class="col-md-3 text-right">
+          <p>Total: Rs. ${Math.ceil(
+						(Number(depFlightData[index].price) +
+							Number(retFlightData[index].price)) *
+							metaData[4]
+					)}</p>
+          <button class="btn btn-primary">Book This Flight</button>
+        </div>
       </div>
     `
 	})

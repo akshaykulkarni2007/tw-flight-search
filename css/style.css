@@ -1,0 +1,8 @@
+#journey {
+	text-transform: capitalize;
+	font-size: 2rem;
+}
+
+.result {
+	border-bottom: 1px solid #dfdfdf;
+}
