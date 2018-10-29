@@ -4,7 +4,7 @@ const searchButton = document.getElementsByClassName("search"),
 	scheduleSummary = document.getElementById("schedule")
 
 let filteredData = [],
-	template = ``
+	resultsTemplate = ``
 
 Array.from(searchButton).forEach(button =>
 	button.addEventListener("click", fetchFlightData)
@@ -31,30 +31,52 @@ function filterResults(data) {
 		minPrice = Math.trunc(priceSlider.noUiSlider.get()[0]),
 		maxPrice = Math.trunc(priceSlider.noUiSlider.get()[1])
 
-	const flightMeta = [origin, destination, depDate, retDate]
-	filteredData = data
-		.filter(
-			flight =>
-				flight.origin.toLowerCase() === origin &&
-				flight.destination.toLowerCase() === destination &&
-				minPrice <= Number(flight.price) &&
-				Number(flight.price) <= maxPrice
-		)
-		.concat(flightMeta)
-	renderResults(filteredData)
+	resultsTemplate = ``
+
+	const metaData = [origin, destination, depDate, retDate]
+	filteredData = data.filter(
+		flight =>
+			flight.origin.toLowerCase() === origin &&
+			flight.destination.toLowerCase() === destination &&
+			minPrice <= Number(flight.price) &&
+			Number(flight.price) <= maxPrice
+	)
+
+	renderResults(filteredData, metaData)
 }
 
-function renderResults(filteredData) {
-	journeySummary.innerHTML = `${filteredData.slice(-4)[0]} > ${
-		filteredData.slice(-3)[0]
-	} 
-  ${filteredData.slice(-1)[0] ? " > " + filteredData.slice(-4)[0] : ""}`
-	scheduleSummary.innerHTML = `Depart: ${
-		filteredData.slice(-2)[0]
-	} <br/> Return: ${
-		filteredData.slice(-1)[0] === null ? "-" : filteredData.slice(-1)[0]
+function renderResults(filteredData, metaData) {
+	journeySummary.innerHTML = `${metaData[0]} > ${metaData[1]} 
+  ${metaData[3] ? " > " + metaData[0] : ""}`
+
+	scheduleSummary.innerHTML = `Depart: ${metaData[2]} <br/> Return: ${
+		metaData[3] === null ? "-" : metaData[3]
 	}`
-	console.log(filteredData)
+
+	filteredData.forEach(flight => {
+		resultsTemplate += `
+      <div class="col-md-9">
+      <h3>total price</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <p>flight num</p>
+            <p>to</p>
+            <p>depart</p>
+            <p>arrive</p>
+          </div>
+          <div class="col-md-6">
+            <p>flight num</p>
+            <p>return</p>
+            <p>depart</p>
+            <p>arrive</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3"><button class="btn btn-primary">Book This Flight</button></div>
+    `
+	})
+	document.getElementById("results").innerHTML = resultsTemplate
+	console.log(arguments)
 }
 
 function initSlider() {
