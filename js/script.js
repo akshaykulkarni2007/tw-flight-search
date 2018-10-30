@@ -1,143 +1,176 @@
 const searchButton = document.getElementsByClassName("search"),
-	priceSlider = document.getElementById("price-slider"),
-	journeySummary = document.getElementById("journey"),
-	scheduleSummary = document.getElementById("schedule")
+  priceSlider = document.getElementById("price-slider"),
+  journeySummary = document.getElementById("journey"),
+  scheduleSummary = document.getElementById("schedule")
+results = document.getElementById("results")
 
 let depFlightData = [],
-	retFlightData = [],
-	resultsTemplate = ``
+  retFlightData = [],
+  resultsTemplate = ``,
+  origin,
+  destination,
+  depDate,
+  retDate,
+  passangers
 
-function fetchFlightData() {
-	fetch("../flight_data.json")
-		.then(res => res.json())
-		.then(data => filterResults(data))
+const fetchFlightData = e => {
+  if (e.target && e.target.classList.contains("one-search")) {
+    origin = getInput("one-", "origin").value.toLowerCase()
+    destination = getInput("one-", "destination").value.toLowerCase()
+    depDate = getInput("one-", "dep-date").value
+    passangers = getInput("one-", "passangers").value || 1
+  } else if (e.target && e.target.classList.contains("two-search")) {
+    origin = getInput("two-", "origin").value.toLowerCase()
+    destination = getInput("two-", "destination").value.toLowerCase()
+    depDate = getInput("two-", "dep-date").value
+    retDate = getInput("two-", "ret-date").value
+    passangers = getInput("two-", "passangers").value || 1
+  }
+
+  if ((origin !== "" && destination !== "", depDate !== "")) {
+    fetch("../flight_data.json")
+      .then(res => res.json())
+      .then(data => filterResults(data))
+      .catch(
+        err => (results.innerHTML = `Couldn't fetch flights. Please try again.`)
+      )
+  } else {
+    results.innerHTML = `Origin, Destination and Departure Date are mandatory.`
+  }
 }
 
-function filterResults(data) {
-	const origin = getInput("origin").value.toLowerCase(),
-		destination = getInput("destination").value.toLowerCase(),
-		depDate = getInput("dep-date").value,
-		retDate = getInput("ret-date") && getInput("ret-date").value,
-		passangers = getInput("passangers").value || 1,
-		minPrice = Math.trunc(priceSlider.noUiSlider.get()[0]),
-		maxPrice = Math.trunc(priceSlider.noUiSlider.get()[1]),
-		metaData = [origin, destination, depDate, retDate, passangers]
+const filterResults = data => {
+  const minPrice = Math.trunc(priceSlider.noUiSlider.get()[0]),
+    maxPrice = Math.trunc(priceSlider.noUiSlider.get()[1]),
+    metaData = [origin, destination, depDate, retDate, passangers]
 
-	resultsTemplate = ``
+  resultsTemplate = ``
 
-	depFlightData = data.filter(
-		flight =>
-			flight.origin.toLowerCase() === origin &&
-			flight.destination.toLowerCase() === destination &&
-			minPrice <= flight.price &&
-			flight.price <= maxPrice &&
-			flight.date === depDate
-	)
+  depFlightData = data.filter(
+    flight =>
+      flight.origin.toLowerCase() === origin &&
+      flight.destination.toLowerCase() === destination &&
+      minPrice <= flight.price &&
+      flight.price <= maxPrice &&
+      flight.date === depDate
+  )
 
-	if (retDate) {
-		retFlightData = data.filter(
-			flight =>
-				flight.origin.toLowerCase() === destination &&
-				flight.destination.toLowerCase() === origin &&
-				minPrice <= flight.price &&
-				flight.price <= maxPrice &&
-				flight.date === depDate &&
-				flight.date === retDate
-		)
-	}
+  if (retDate) {
+    retFlightData = data.filter(
+      flight =>
+        flight.origin.toLowerCase() === destination &&
+        flight.destination.toLowerCase() === origin &&
+        minPrice <= flight.price &&
+        flight.price <= maxPrice &&
+        flight.date === depDate &&
+        flight.date === retDate
+    )
+  }
 
-	renderResults(depFlightData, retFlightData, metaData)
+  renderResults(depFlightData, retFlightData, metaData)
 }
 
-function renderResults(depFlightData, retFlightData, metaData) {
-	if (depFlightData.length !== 0 || retFlightData.length !== 0) {
-		journeySummary.innerHTML = `${metaData[0]} > ${metaData[1]} 
+const renderResults = (depFlightData, retFlightData, metaData) => {
+  if (depFlightData.length !== 0 || retFlightData.length !== 0) {
+    journeySummary.innerHTML = `${metaData[0]} > ${metaData[1]} 
       ${metaData[3] ? " > " + metaData[0] : ""}`
 
-		scheduleSummary.innerHTML = `Depart: ${metaData[2]} <br/> Return: ${
-			metaData[3] === null ? "-" : metaData[3]
-		}`
+    scheduleSummary.innerHTML = `Depart: ${metaData[2]} <br/> Return: ${
+      metaData[3] === null ? "-" : metaData[3]
+    }`
 
-		depFlightData.forEach((flight, index) => {
-			resultsTemplate += `
+    const largerArray =
+      depFlightData.length >= retFlightData.length
+        ? depFlightData.length
+        : retFlightData.length
+
+    for (let index = 0; index < largerArray; index++) {
+      resultsTemplate += `
       <div class="row result my-2">
         <div class="col-md-9">
-          <div class="row">
-            <div class="col-md-6">Rs. ${Math.ceil(
-							depFlightData[index].price
-						)}</div>
-            <div class="col-md-6"> ${
-							retFlightData.length
-								? `Rs. ${Math.ceil(retFlightData[index].price)}`
-								: ""
-						}</div>
+					<div class="row">
+						${
+              depFlightData[index]
+                ? `<div class="col-md-6"><strong>Rs. ${Math.ceil(
+                    depFlightData[index].price
+                  )}</strong></div>`
+                : ""
+            }
+            ${
+              retFlightData[index]
+                ? `<div class="col-md-6"><strong>Rs. ${Math.ceil(
+                    retFlightData[index].price
+                  )}</strong></div>`
+                : ""
+            }
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <p>${depFlightData[index].id}</p>
+					<div class="row">
+					${
+            depFlightData[index]
+              ? `<div class="col-md-6">
+              <p><em>${depFlightData[index].id}</em></p>
               <p>${depFlightData[index].origin} > ${
-				depFlightData[index].destination
-			}</p>
+                  depFlightData[index].destination
+                }</p>
               <p>Depart: ${depFlightData[index].dep_time}</p>
               <p>Arrive: ${depFlightData[index].arr_time}</p>
-            </div>
+            </div>`
+              : ""
+          }
             ${
-							retFlightData.length
-								? `<div class="col-md-6">
-            <p>${retFlightData[index].id}</p>
+              retFlightData[index]
+                ? `<div class="col-md-6">
+            <p><em>${retFlightData[index].id}</em></p>
             <p>${retFlightData[index].origin} > ${
-										retFlightData[index].destination
-								  }</p>
+                    retFlightData[index].destination
+                  }</p>
             <p>Depart: ${retFlightData[index].dep_time}</p>
             <p>Arrive: ${retFlightData[index].arr_time}</p>
             </div>`
-								: ""
-						}
+                : ""
+            }
           </div>
         </div>
         <div class="col-md-3 text-right">
-          <p>Total: Rs. ${Math.ceil(
-						(Number(depFlightData[index].price) +
-							(retFlightData.length && Number(retFlightData[index].price))) *
-							metaData[4]
-					)}</p>
+          <p><strong>Total: Rs. ${Math.ceil(
+            ((depFlightData[index] ? Number(depFlightData[index].price) : 0) +
+              (retFlightData[index] ? Number(retFlightData[index].price) : 0)) *
+              metaData[4]
+          )}</strong></p>
           <button class="btn btn-primary">Book This Flight</button>
         </div>
       </div>
     `
-		})
-	} else {
-		resultsTemplate = `No results found.`
-	}
+    }
+  } else {
+    resultsTemplate = `No results found.`
+  }
 
-	document.getElementById("results").innerHTML = resultsTemplate
-	console.log(arguments)
+  results.innerHTML = resultsTemplate
 }
 
-function getInput(id) {
-	return document.querySelector(".tab-pane.active #" + id)
+const getInput = (prefix, id) => {
+  return document.querySelector(`#${prefix}${id}`)
 }
 
 Array.from(searchButton).forEach(button =>
-	button.addEventListener("click", fetchFlightData)
+  button.addEventListener("click", fetchFlightData)
 )
 
-function initSlider() {
-	noUiSlider.create(priceSlider, {
-		start: [4000, 8000],
-		step: 1000,
-		range: {
-			min: [1000],
-			max: [10000]
-		},
-		pips: {
-			mode: "steps",
-			density: 2
-		}
-	})
-	priceSlider.noUiSlider.on("change", fetchFlightData)
+const initSlider = () => {
+  noUiSlider.create(priceSlider, {
+    start: [4000, 8000],
+    step: 1000,
+    range: {
+      min: [1000],
+      max: [10000]
+    },
+    pips: {
+      mode: "steps",
+      density: 2
+    }
+  })
+  priceSlider.noUiSlider.on("change", fetchFlightData)
 }
-
-// decide about passangers
 
 initSlider()

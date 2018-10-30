@@ -32,52 +32,50 @@
         <div class="tab-content">
 
           <div role="tabpanel" class="tab-pane fade in show active" id="oneway">
-            <form action="" class="filter-form">
+            <form action="" id="one-way-form" class="filter-form">
               <div class="form-group">
-                <label for="origin">Origin City</label>
-                <input type="text" class="form-control" id="origin" name="origin" placeholder="Enter Origin City">
+                <label for="one-origin">Origin City</label>
+                <input type="text" class="form-control" id="one-origin" name="one-origin" placeholder="Enter Origin City">
               </div>
               <div class="form-group">
-                <label for="destination">Destination</label>
-                <input type="text" class="form-control" id="destination" name="destination" placeholder="Enter Destination">
+                <label for="one-destination">Destination</label>
+                <input type="text" class="form-control" id="one-destination" name="one-destination" placeholder="Enter Destination">
               </div>
               <div class="form-group">
-                <label for="dep-date">Departure Date</label>
-                <input type="date" class="form-control" id="dep-date" name="dep-date" placeholder="Departure Date">
+                <label for="one-dep-date">Departure Date</label>
+                <input type="date" class="form-control" id="one-dep-date" name="one-dep-date" placeholder="Departure Date">
               </div>
               <div class="form-group">
-                <label for="passangers">Passangers</label>
-                <input type="number" class="form-control" id="passangers" name="passangers" placeholder="Passangers" min="0">
+                <label for="one-passangers">Passangers</label>
+                <input type="number" class="form-control" id="one-passangers" name="one-passangers" value="1" placeholder="Passangers" min="0">
               </div>
-
-              <button type="button" class="btn btn-primary search mb-2">Search</button>
+              <button type="button" class="btn btn-primary one-search search mb-2">Search</button>
             </form>
           </div>
 
           <div role="tabpanel" class="tab-pane fade" id="return">
-            <form action="" class="filter-form">
+            <form action="" id="two-way-form" class="filter-form">
               <div class="form-group">
-                <label for="origin">Origin City</label>
-                <input type="text" class="form-control" id="origin" name="origin" placeholder="Enter Origin City">
+                <label for="two-origin">Origin City</label>
+                <input type="text" class="form-control" id="two-origin" name="two-origin" placeholder="Enter Origin City">
               </div>
               <div class="form-group">
-                <label for="destination">Destination</label>
-                <input type="text" class="form-control" id="destination" name="destination" placeholder="Enter Destination">
+                <label for="two-destination">Destination</label>
+                <input type="text" class="form-control" id="two-destination" name="two-destination" placeholder="Enter Destination">
               </div>
               <div class="form-group">
-                <label for="dep-date">Departure Date</label>
-                <input type="date" class="form-control" id="dep-date" name="dep-date" placeholder="Departure Date">
+                <label for="two-dep-date">Departure Date</label>
+                <input type="date" class="form-control" id="two-dep-date" name="two-dep-date" placeholder="Departure Date">
               </div>
               <div class="form-group">
-                <label for="ret-date">Return Date</label>
-                <input type="date" class="form-control" id="ret-date" name="ret-date" placeholder="Return Date">
+                <label for="two-ret-date">Return Date</label>
+                <input type="date" class="form-control" id="two-ret-date" name="two-ret-date" placeholder="Return Date">
               </div>
               <div class="form-group">
-                <label for="passangers">Passangers</label>
-                <input type="number" class="form-control" id="passangers" name="passangers" placeholder="Passangers" min="0">
+                <label for="two-passangers">Passangers</label>
+                <input type="number" class="form-control" id="two-passangers" name="two-passangers" value="1" placeholder="Passangers" min="0">
               </div>
-
-              <button type="button" class="btn btn-primary search mb-2">Search</button>
+              <button type="button" class="btn btn-primary two-search search mb-2">Search</button>
             </form>
           </div>
         </div>
