@@ -86,68 +86,58 @@ const renderResults = (depFlightData, retFlightData, metaData) => {
 
 		for (let index = 0; index < largerArray; index++) {
 			resultsTemplate += `
-      <div class="row result my-2">
-        <div class="col-md-9">
-					<div class="row">
-						${
-							depFlightData[index]
-								? `<div class="col-md-6"><strong>Rs. ${Math.round(
-										depFlightData[index].price
-								  )}</strong></div>`
-								: ""
-						}
-            ${
-							retFlightData[index]
-								? `<div class="col-md-6"><strong>Rs. ${Math.round(
-										retFlightData[index].price
-								  )}</strong></div>`
-								: ""
-						}
-          </div>
-					<div class="row">
-            ${
-							depFlightData[index]
-								? `<div class="col-md-6">
-                <p><em>${depFlightData[index].id}</em></p>
-                <p>${depFlightData[index].origin} > ${
-										depFlightData[index].destination
-								  }</p>
-                <p>Depart: ${depFlightData[index].dep_time}</p>
-                <p>Arrive: ${depFlightData[index].arr_time}</p>
-              </div>`
-								: ""
-						}
-            
-            ${
-							retFlightData[index]
-								? `<div class="col-md-6">
-            <p><em>${retFlightData[index].id}</em></p>
-            <p>${retFlightData[index].origin} > ${
-										retFlightData[index].destination
-								  }</p>
-            <p>Depart: ${retFlightData[index].dep_time}</p>
-            <p>Arrive: ${retFlightData[index].arr_time}</p>
-            </div>`
-								: ""
-						}
-          </div>
-        </div>
-        <div class="col-md-3 text-right">
-          <p><strong>Total: Rs. ${Math.round(
-						((depFlightData[index] ? Number(depFlightData[index].price) : 0) +
-							(retFlightData[index] ? Number(retFlightData[index].price) : 0)) *
-							metaData[4]
-					)}</strong></p>
-          <button class="btn btn-primary">Book This Flight</button>
-        </div>
-      </div>
-    `
+				<div class="row result my-2">
+					<div class="col-md-9">
+						<div class="row">
+							${
+								depFlightData[index]
+									? `<div class="col-md-6"><strong>Rs. ${Math.round(
+											depFlightData[index].price
+									  )}</strong></div>`
+									: ""
+							}
+							${
+								retFlightData[index]
+									? `<div class="col-md-6"><strong>Rs. ${Math.round(
+											retFlightData[index].price
+									  )}</strong></div>`
+									: ""
+							}
+						</div>
+						<div class="row">
+							${getFlightTemplate(depFlightData[index]) +
+								getFlightTemplate(retFlightData[index])}
+						</div>
+					</div>
+					<div class="col-md-3 text-right">
+						<p><strong>Total: Rs. ${Math.round(
+							((depFlightData[index] ? Number(depFlightData[index].price) : 0) +
+								(retFlightData[index]
+									? Number(retFlightData[index].price)
+									: 0)) *
+								metaData[4]
+						)}</strong></p>
+						<button class="btn btn-primary">Book This Flight</button>
+					</div>
+				</div>
+			`
 		}
 	} else {
 		resultsTemplate = `No results found.`
 	}
 
 	results.innerHTML = resultsTemplate
+}
+
+function getFlightTemplate(flightData) {
+	return flightData
+		? `<div class="col-md-6">
+				<p><em>${flightData.id}</em></p>
+				<p>${flightData.origin} > ${flightData.destination}</p>
+				<p>Depart: ${flightData.dep_time}</p>
+				<p>Arrive: ${flightData.arr_time}</p>
+				</div>`
+		: ""
 }
 
 const getInput = (prefix, id) => {
